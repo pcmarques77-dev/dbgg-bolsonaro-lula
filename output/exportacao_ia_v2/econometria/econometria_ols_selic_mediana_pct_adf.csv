@@ -1,0 +1,6 @@
+serie;adf_stat;p_value;n_obs;conclusao_5pct
+selic_mediana_pct;-0,5487629037002714;0,8821444117451132;1725,0;não_rejeita_H0_raiz_unitária
+dummy_lula;-0,9326212610001646;0,7770400758104479;1725,0;não_rejeita_H0_raiz_unitária
+dummy_pandemia;-1,6436213364517132;0,4603691722635975;1725,0;não_rejeita_H0_raiz_unitária
+vix;-4,964059348029595;2,6130085675638048e-05;1725,0;rejeita_H0_raiz_unitária
+commodities;-0,9739762059670423;0,7626371696786558;1725,0;não_rejeita_H0_raiz_unitária

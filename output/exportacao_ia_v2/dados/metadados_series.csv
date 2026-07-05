@@ -1,0 +1,11 @@
+serie,fonte
+ipca_med12m,"Olinda ExpectativasMercadoInflacao12Meses — IPCA, Suavizada N"
+selic_mediana_pct,Olinda ExpectativasMercadoSelic — último R*/ano da survey
+usdbrl_med_fwd,Olinda ExpectativaMercadoMensais — Câmbio
+pib_med_pct,Olinda ExpectativasMercadoAnuais — PIB Total
+usd_sgs_med,BCB SGS 1 — USD diário
+ibov_fech,yfinance ^BVSP
+vix,yfinance ^VIX
+commodities,yfinance DBC
+dummy_lula,1 se survey_date >= 2023
+dummy_pandemia,1 se survey_date entre 2020-03-01 e 2021-12-31

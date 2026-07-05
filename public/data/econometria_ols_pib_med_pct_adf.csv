@@ -1,0 +1,6 @@
+serie;adf_stat;p_value;n_obs;conclusao_5pct
+pib_med_pct;-1,9760871106677436;0,297155476050019;1824,0;não_rejeita_H0_raiz_unitária
+dummy_lula;-0,9243693518854069;0,779841354333599;1824,0;não_rejeita_H0_raiz_unitária
+dummy_pandemia;-1,6341908911823613;0,4652978045664043;1824,0;não_rejeita_H0_raiz_unitária
+vix;-5,070120056393887;1,609382764363016e-05;1824,0;rejeita_H0_raiz_unitária
+commodities;-0,9925422483323276;0,7559746167448811;1824,0;não_rejeita_H0_raiz_unitária

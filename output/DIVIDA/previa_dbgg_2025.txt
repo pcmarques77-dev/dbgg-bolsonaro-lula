@@ -1,0 +1,9 @@
+Prévia DBGG 2025 — Focus x SGS
+
+Focus: Olinda ExpectativasMercadoAnuais, indicador 'Dívida bruta do governo geral'
+  fonte: https://dadosabertos.bcb.gov.br/dataset/expectativas-mercado
+Realizado: SGS 13762 — DBGG (% PIB), metodologia a partir de 2008
+  fonte: https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008
+  fechamento: dezembro/2025
+Última mediana Focus antes de 01/05/2026 (proxy divulgação fiscal anual)
+erro_focus_vs_realizado_pp = focus − realizado (p.p.)

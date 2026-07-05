@@ -1,0 +1,37 @@
+# Gemini Project Rules & Guidelines (.geminirules)
+
+## Instruções de Inicialização para o Agente Gemini
+1. **Leitura de Contexto:** No início de qualquer sessão, leia este arquivo e verifique o arquivo `task.md` para entender as tarefas concluídas e o backlog de atividades.
+2. **Inspeção Ativa (Sem Suposições):** Antes de fazer modificações de código ou sugerir correções de fluxo, use `view_file` ou `grep_search` nos arquivos correspondentes para garantir que a estrutura de variáveis, tipos e assinaturas esteja correta. Não alucine sobre o estado dos arquivos.
+3. **Sincronização de Estado (Handoff):** Ao concluir tarefas importantes ou antes de fechar uma sessão, atualize o arquivo `task.md` na raiz do projeto com o progresso atual.
+
+## Diretrizes e Padrões do Projeto
+
+### Stack Tecnológica
+* **Frontend:** React 18+ (TypeScript), Vite, Recharts (visualizações).
+* **Backend / Pipeline de Dados:** Python (com scripts de extração conectando a Olinda BCB, IBGE SIDRA e SGS).
+* **Estilização:** CSS Vanilla em `src/App.css` (não utilizar TailwindCSS). Variáveis CSS definidas em `:root`.
+
+### Diretrizes de Visualização (Recharts)
+* **Amostragem de Dados Diários/Semanais:** Séries temporais muito longas (como o IPCA Anual) que contenham dados diários ou semanais sofrem de congestionamento de pontos (dots). Devem ser amostradas mensalmente (`idx % 20 === 0`) para manter os pontos espaçados e legíveis.
+* **Mapeamento de Cores:** Evitar cores primárias genéricas puras. Utilizar as variáveis de cores premium definidas em `:root` no `App.css`:
+  - `var(--color-primary)` (#3b82f6 - Azul Focus)
+  - `var(--color-secondary)` (#f97316 - Laranja IBGE)
+  - `var(--color-accent)` (#06b6d4 - Ciano Neon)
+  - Cores auxiliares: `#ef4444` (Lula/Erro), `#10b981` (Bolsonaro/Sucesso).
+* **Bordas e Opacidade no Scatter Plot:** Em gráficos de dispersão (ScatterChart), usar `fillOpacity={0.65}` e bordas finas com a mesma tonalidade (`stroke` e `strokeWidth={1}`) para destacar densidades de sobreposição.
+* **Prevenção de '%%' no Tooltip:** Em gráficos com eixos percentuais, usar `tickFormatter` no `XAxis`/`YAxis` para renderizar o `%` nos eixos, e formatar o valor na propriedade `formatter` do `Tooltip` sem anexar a unidade de forma redundante (o Recharts ScatterChart concatena a unidade automaticamente se ela estiver declarada no eixo).
+
+### Estrutura de Cards de Comentários
+* **Bento Grid:** As análises estruturadas de cenário com exatamente 3 pontos devem ser dispostas em formato Bento horizontal de 3 colunas de igual tamanho (`repeat(3, 1fr)`) com alinhamento pelo topo (`justify-content: flex-start` e `gap: 12px`).
+* **Fallback:** Listas com mais ou menos pontos devem degradar para o modelo clássico de lista vertical automaticamente.
+
+## Mapeamento de Arquivos Críticos
+* **Visual/Interface:**
+  - `src/App.tsx`: Layout principal do dashboard, abas e lógica de filtros.
+  - `src/components/Charts.tsx`: Declaração de todos os gráficos customizados em Recharts.
+  - `src/App.css`: Design system, glassmorphism e animações.
+  - `src/loadData.ts`: Processamento de CSVs e mapeamento para arrays tipados de dados.
+* **Pipeline de Dados:**
+  - `scripts/exportar_dados_web.py`: Ponto de entrada do script Python que unifica e limpa os dados.
+  - `src/mba_economia/ipca_comparisons.py`, `pib_comparisons.py`, `selic_comparisons.py`: Lógicas específicas de extração das variáveis.

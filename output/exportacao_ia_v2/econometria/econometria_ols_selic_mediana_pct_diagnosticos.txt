@@ -1,0 +1,28 @@
+Modelo: selic_mediana_pct ~ const + dummy_lula, dummy_pandemia, vix, commodities
+Observações: 1725
+Covariância: HAC (erros robustos Newey-West maxlags=4 se HAC)
+
+=== Diagnósticos de resíduos ===
+               teste        valor                                        nota
+  breusch_pagan_stat 4.426745e+02 heterocedasticidade (H0: homocedasticidade)
+breusch_pagan_pvalue 1.665210e-94                                            
+       durbin_watson 2.086433e-02        autocorrelação serial (~2 sem AR(1))
+    jarque_bera_stat 4.541399e+01                    normalidade dos resíduos
+  jarque_bera_pvalue 1.375556e-10                                            
+          resid_skew 3.407930e-01                                            
+      resid_kurtosis 2.590992e+00                                            
+
+=== ADF (Dickey-Fuller aumentado, autolag=AIC) ===
+            serie  adf_stat  p_value  n_obs               conclusao_5pct
+selic_mediana_pct -0.548763 0.882144 1725.0 não_rejeita_H0_raiz_unitária
+       dummy_lula -0.932621 0.777040 1725.0 não_rejeita_H0_raiz_unitária
+   dummy_pandemia -1.643621 0.460369 1725.0 não_rejeita_H0_raiz_unitária
+              vix -4.964059 0.000026 1725.0     rejeita_H0_raiz_unitária
+      commodities -0.973976 0.762637 1725.0 não_rejeita_H0_raiz_unitária
+
+=== Teste de Quebra Estrutural de Chow (Bolsonaro vs. Lula 3) ===
+            teste      valor  p_value                                   nota
+      chow_f_stat 554.337107      0.0    quebra estrutural significante a 5%
+ chow_n_bolsonaro 922.000000      NaN                                       
+      chow_n_lula 803.000000      NaN                                       
+chow_params_count   3.000000      NaN Variáveis analisadas: vix, commodities

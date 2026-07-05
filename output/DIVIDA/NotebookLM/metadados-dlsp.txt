@@ -1,0 +1,20 @@
+DLSP anual — export batch
+janela_referencia: 2019 a 2025
+data_export: 2026-06-07
+
+Expectativa (Focus): Olinda ExpectativasMercadoAnuais
+  indicador: Dívida líquida do setor público
+  dlsp_focus_med_pct_pib = mediana (% do PIB)
+  fonte: https://dadosabertos.bcb.gov.br/dataset/expectativas-mercado
+
+Realizado: BC SGS 4513 — DLSP (% PIB), setor público consolidado
+  dlsp_sgs_pct_pib = fechamento de dezembro do ano (última obs. do ano)
+  dlsp_sgs_yoy_pp = variação em pontos percentuais vs dezembro anterior
+  fonte: https://dadosabertos.bcb.gov.br/dataset/4513-divida-liquida-do-setor-publico--pib---total---setor-publico-consolidado
+
+Nota: o Tesouro Transparente publica estoque da DPF (dívida federal mobiliária);
+  DLSP é conceito mais amplo (setor público consolidado), divulgado pelo BC/STN.
+
+comparacao_focus_dlsp_anual.csv:
+  última mediana Focus antes de 01/05/(ano+1) (proxy divulgação fiscal anual)
+  erro_focus_vs_realizado_pp = focus_ultima_mediana_pct_pib - dlsp_realizado_dez_pct_pib

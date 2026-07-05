@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mba-economia-fipe"
+version = "0.1.0"
+description = "Painel MVP: Focus (Olinda) + USD (SGS) + Ibovespa (proxy)."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=2.0",
+    "requests>=2.31",
+    "yfinance>=0.2.40",
+    "matplotlib>=3.8",
+    "pyarrow>=15.0",
+    "statsmodels>=0.14",
+]
+
+[project.optional-dependencies]
+dev = ["ruff>=0.4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+mba-panel = "mba_economia.cli:main"

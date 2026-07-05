@@ -1,0 +1,4 @@
+serie;adf_stat;p_value;n_obs;conclusao_5pct
+selic_mediana_pct;-0,551353118535946;0,8815997949472885;1770,0;não_rejeita_H0_raiz_unitária
+desancoragem_centro_12m;-1,8756197798331082;0,34361580460010244;1770,0;não_rejeita_H0_raiz_unitária
+dummy_lula;-0,934814599117434;0,776291426868042;1770,0;não_rejeita_H0_raiz_unitária

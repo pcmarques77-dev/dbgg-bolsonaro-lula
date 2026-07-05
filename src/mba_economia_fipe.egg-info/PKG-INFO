@@ -1,0 +1,59 @@
+Metadata-Version: 2.4
+Name: mba-economia-fipe
+Version: 0.1.0
+Summary: Painel MVP: Focus (Olinda) + USD (SGS) + Ibovespa (proxy).
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: pandas>=2.2
+Requires-Dist: numpy>=2.0
+Requires-Dist: requests>=2.31
+Requires-Dist: yfinance>=0.2.40
+Requires-Dist: matplotlib>=3.8
+Requires-Dist: pyarrow>=15.0
+Requires-Dist: statsmodels>=0.14
+Provides-Extra: dev
+Requires-Dist: ruff>=0.4; extra == "dev"
+
+# PIB Focus × IBGE — visualização (React)
+
+Projeto **separado** do painel Python. Lê os CSVs gerados em `../output/PIB/` e exibe gráficos interativos (Recharts).
+
+## Pré-requisito
+
+Exportar/atualizar os dados no repo principal:
+
+```powershell
+cd ..
+python scripts/exportar_pib_trimestral.py --out-dir output/PIB
+```
+
+## Instalação e uso
+
+```powershell
+cd pib-focus-viz
+npm install
+npm run dev
+```
+
+Abre em `http://localhost:5173`.
+
+- **`npm run sync-data`** — copia `../output/PIB/*.csv` → `public/data/`
+- **`npm run dev`** — sincroniza e sobe o Vite
+- **`npm run build`** — build estático em `dist/`
+
+## Gráficos
+
+1. Barras — Focus (última mediana pré-divulgação) vs IBGE YoY por trimestre  
+2. Erro de previsão (p.p.)  
+3. Dispersão Focus × IBGE  
+4. Convergência — série diária Focus para um trimestre escolhido (com linha IBGE)
+
+## Stack
+
+- Vite + React + TypeScript  
+- [Recharts](https://recharts.org/)  
+- [PapaParse](https://www.papaparse.com/) para CSV  
+
+## Nota
+
+Este diretório **não** faz parte do pacote `mba_economia`. Pode ser movido para outro repositório; basta ajustar o caminho em `scripts/sync-data.mjs`.

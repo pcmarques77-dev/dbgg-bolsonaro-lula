@@ -1,0 +1,26 @@
+Modelo: taylor_rule ~ const + desancoragem_centro_12m, dummy_lula
+Observações: 1770
+Covariância: HAC (erros robustos Newey-West maxlags=4 se HAC)
+
+=== Diagnósticos de resíduos ===
+               teste        valor                                        nota
+  breusch_pagan_stat 1.693411e+02 heterocedasticidade (H0: homocedasticidade)
+breusch_pagan_pvalue 1.690628e-37                                            
+       durbin_watson 2.970549e-02        autocorrelação serial (~2 sem AR(1))
+    jarque_bera_stat 4.663795e+00                    normalidade dos resíduos
+  jarque_bera_pvalue 9.711132e-02                                            
+          resid_skew 2.194000e-03                                            
+      resid_kurtosis 2.748567e+00                                            
+
+=== ADF (Dickey-Fuller aumentado, autolag=AIC) ===
+                  serie  adf_stat  p_value  n_obs               conclusao_5pct
+            taylor_rule -0.551353 0.881600 1770.0 não_rejeita_H0_raiz_unitária
+desancoragem_centro_12m -1.875620 0.343616 1770.0 não_rejeita_H0_raiz_unitária
+             dummy_lula -0.934815 0.776291 1770.0 não_rejeita_H0_raiz_unitária
+
+=== Teste de Quebra Estrutural de Chow (Bolsonaro vs. Lula 3) ===
+            teste      valor                                          nota
+      chow_f_stat  34.761499           quebra estrutural significante a 5%
+ chow_n_bolsonaro 944.000000                                              
+      chow_n_lula 826.000000                                              
+chow_params_count   2.000000 Variáveis analisadas: desancoragem_centro_12m

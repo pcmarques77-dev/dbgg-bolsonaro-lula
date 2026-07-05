@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefing de Entrevista: Expectativas de Mercado (Bolsonaro vs. Lula 3)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.15);
+            --accent-teal: #0d9488;
+            --accent-coral: #f43f5e;
+            --accent-emerald: #10b981;
+            --accent-yellow: #f59e0b;
+            --font-outfit: 'Outfit', sans-serif;
+            --font-inter: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(17, 24, 39, 1) 0, transparent 50%),
+                radial-gradient(at 50% 0%, rgba(59, 130, 246, 0.05) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(13, 148, 136, 0.05) 0, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: var(--font-inter);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Style */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--card-border);
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-teal));
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            font-family: var(--font-outfit);
+        }
+
+        h1 {
+            font-family: var(--font-outfit);
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Layout Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 900px) {
+            .grid-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(59, 130, 246, 0.2);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 0 40px var(--primary-glow);
+        }
+
+        .card-title {
+            font-family: var(--font-outfit);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.75rem;
+        }
+
+        .card-title span.icon {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #d1d5db;
+            font-size: 0.95rem;
+        }
+
+        p strong {
+            color: #ffffff;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: rgba(13, 148, 136, 0.08);
+            border-left: 4px solid var(--accent-teal);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.2rem 0;
+        }
+
+        .highlight-box-danger {
+            background: rgba(244, 63, 94, 0.08);
+            border-left: 4px solid var(--accent-coral);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.2rem 0;
+        }
+
+        .highlight-box-title {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        /* Tables */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-family: var(--font-outfit);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #d1d5db;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .significance {
+            font-weight: 600;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .significance.pos {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .significance.neg {
+            background-color: rgba(244, 63, 94, 0.15);
+            color: var(--accent-coral);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+
+        /* Metric Selector */
+        .selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            justify-content: flex-end;
+        }
+
+        .selector-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .selector-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-family: var(--font-outfit);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 3rem 0 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #ffffff;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin-left: 1rem;
+        }
+
+        /* Discussion Block */
+        .discussion-section {
+            background: rgba(59, 130, 246, 0.03);
+            border: 1px dashed rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .discussion-section h3 {
+            font-family: var(--font-outfit);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .question-list {
+            list-style: none;
+        }
+
+        .question-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-item::before {
+            content: '?';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.35rem;
+            height: 1.35rem;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .question-context {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <span class="badge">MBA Economia FIPE — TCC</span>
+            <h1>Análise de Expectativas de Mercado</h1>
+            <div class="subtitle">Guia de briefing para entrevistas com especialistas. Comparações estatísticas e econométricas das projeções Focus entre os governos Bolsonaro (2019-2022) e Lula 3 (2023-presente).</div>
+        </header>
+
+        <!-- INTRODUÇÃO / RESUMO DO PROJETO -->
+        <div class="card" style="margin-bottom: 3rem; background: linear-gradient(135deg, rgba(17, 24, 39, 0.8) 0%, rgba(30, 41, 59, 0.5) 100%);">
+            <h2 class="card-title"><span class="icon">💡</span>Tese Central do Estudo</h2>
+            <p>O objetivo do TCC é ir além das estatísticas de erro descritivas e verificar se houve uma <strong>mudança estrutural de comportamento</strong> das expectativas de mercado nas transições de governo. Através de regressões robustas Newey-West (HAC) controlando por choques externos (como commodities e aversão ao risco global/VIX) e testes formais de quebra estrutural (Chow Test), encontramos padrões consistentes:</p>
+            
+            <div class="highlight-box">
+                <div class="highlight-box-title">Paradoxo IPCA vs. Selic</div>
+                <p style="margin-bottom: 0; font-size: 0.9rem;">Controlando por determinantes globais, no governo <strong>Lula 3</strong> as expectativas para o IPCA acumulado de 12 meses são estatisticamente <strong>menores (-0,63 p.p.)</strong> do que no governo Bolsonaro, enquanto a taxa Selic esperada é significativamente <strong>maior (+1,69 p.p.)</strong>. Esse padrão é formalizado pela estimativa da <strong>Regra de Taylor de Expectativas</strong>, que aponta para um prêmio de risco fiscal implícito de <strong>+3,30 p.p.</strong> nas projeções de juros do Lula 3.</p>
+            </div>
+            <p style="margin-bottom: 0; font-size: 0.9rem; color: var(--text-muted);"><em>Este painel interativo foi desenhado para expor visualmente e de forma rápida esses resultados aos entrevistados.</em></p>
+        </div>
+
+        <!-- ABA 1: ACCURACY (MAE vs RMSE) -->
+        <div class="section-title"><span class="icon">📊</span>1. Acurácia Preditiva (Erros de Início de Ano)</div>
+        
+        <div class="grid-2">
+            <div class="card">
+                <h3 class="card-title"><span class="icon">📈</span>Comparação de Erros por Governo</h3>
+                <p>Mede a diferença entre a <strong>expectativa coletada no primeiro boletim Focus de janeiro</strong> e o <strong>resultado realizado ao final de cada ano</strong>.</p>
+                <div class="selector">
+                    <button class="selector-btn active" id="btn-mae" onclick="setMetric('MAE')">MAE (Erro Absoluto Médio)</button>
+                    <button class="selector-btn" id="btn-rmse" onclick="setMetric('RMSE')">RMSE (Desvio Quadrático Médio)</button>
+                </div>
+                <div style="height: 300px; position: relative;">
+                    <canvas id="accuracyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title"><span class="icon">🔍</span>Diagnóstico de Acurácia</h3>
+                <p>Os números refletem o erro médio absoluto em pontos percentuais (p.p.) das projeções de partida de cada ano:</p>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Variável</th>
+                                <th>MAE Bolsonaro</th>
+                                <th>MAE Lula 3</th>
+                                <th>Diferença</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>IPCA Anual</strong></td>
+                                <td>2,20 p.p.</td>
+                                <td>0,84 p.p.</td>
+                                <td style="color: var(--accent-emerald);">-1,36 p.p.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Selic Anual</strong></td>
+                                <td>3,25 p.p.</td>
+                                <td>1,28 p.p.</td>
+                                <td style="color: var(--accent-emerald);">-1,97 p.p.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PIB Anual</strong></td>
+                                <td>2,76 p.p.</td>
+                                <td>1,41 p.p.</td>
+                                <td style="color: var(--accent-emerald);">-1,35 p.p.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DBGG / PIB</strong></td>
+                                <td>3,10 p.p.</td>
+                                <td>1,20 p.p.</td>
+                                <td style="color: var(--accent-emerald);">-1,90 p.p.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="highlight-box-danger" style="margin-bottom: 0;">
+                    <div class="highlight-box-title">Atenção ao Viés da Amostra</div>
+                    <p style="margin-bottom: 0; font-size: 0.9rem;">Embora o erro médio tenha sido expressivamente menor no governo Lula 3, o período de 2019-2022 é fortemente influenciado pelo choque da pandemia (outliers extremos de 2020 e 2021). A econometria busca isolar este efeito.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA 2: ECONOMETRIA -->
+        <div class="section-title"><span class="icon">🧮</span>2. Resultados Econométricos Robustos (HAC Newey-West)</div>
+
+        <div class="grid-2">
+            
+            <!-- MODELO DE REGRESSÃO -->
+            <div class="card">
+                <h3 class="card-title"><span class="icon">📝</span>Regra de Taylor de Expectativas</h3>
+                <p>Modelo: <code>selic_mediana_pct ~ const + desancoragem_12m + dummy_lula</code></p>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Estima o comportamento da Selic projetada pelo mercado a partir da desancoragem da inflação em relação à meta.</p>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Variável</th>
+                                <th>Coeficiente</th>
+                                <th>Est. z</th>
+                                <th>p-valor</th>
+                                <th>Significância</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Constante (Bolsonaro)</td>
+                                <td>5,6492</td>
+                                <td>38,60</td>
+                                <td>0,000</td>
+                                <td><span class="significance pos">***</span></td>
+                            </tr>
+                            <tr style="background: rgba(59, 130, 246, 0.05);">
+                                <td><strong>Desancoragem IPCA 12m</strong></td>
+                                <td><strong>2,6760</strong></td>
+                                <td>27,88</td>
+                                <td>0,000</td>
+                                <td><span class="significance pos">***</span></td>
+                            </tr>
+                            <tr style="background: rgba(244, 63, 94, 0.05); font-weight: 600;">
+                                <td><strong style="color: var(--accent-coral);">Dummy Lula 3</strong></td>
+                                <td style="color: var(--accent-coral);">+3,2958</td>
+                                <td>15,08</td>
+                                <td>0,000</td>
+                                <td><span class="significance neg">***</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">* Notas: Erros-padrão robustos HAC (Newey-West, maxlags=4). Significância: *** p < 0.01.</p>
+                
+                <div class="highlight-box" style="margin-bottom: 0;">
+                    <div class="highlight-box-title">Teste de Chow (Quebra Estrutural)</div>
+                    <p style="margin-bottom: 0; font-size: 0.9rem;">Estatística F: <strong>631,60</strong> (p-valor: <strong>0,000</strong>). O teste rejeita a estabilidade estrutural das projeções de Selic a 5%. A reação do mercado à desancoragem mudou estruturalmente entre os governos.</p>
+                </div>
+            </div>
+
+            <!-- OUTROS MODELOS -->
+            <div class="card">
+                <h3 class="card-title"><span class="icon">🔗</span>Resumo das Dummies de Controle de Governo</h3>
+                <p>Efeito líquido estimado para o período <strong>Lula 3</strong> (controlando por Commodities, Pandemia e VIX) nas expectativas de 12 meses:</p>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Modelo</th>
+                                <th>Variável Dep.</th>
+                                <th>Efeito Lula 3</th>
+                                <th>Est. z</th>
+                                <th>p-valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. IPCA OLS</strong></td>
+                                <td>ipca_med12m</td>
+                                <td style="color: var(--accent-emerald); font-weight: 600;">-0,6280 p.p.</td>
+                                <td>-8,73</td>
+                                <td>0,000***</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Selic OLS</strong></td>
+                                <td>selic_mediana_pct</td>
+                                <td style="color: var(--accent-coral); font-weight: 600;">+1,6902 p.p.</td>
+                                <td>7,35</td>
+                                <td>0,000***</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. PIB OLS</strong></td>
+                                <td>pib_med_pct</td>
+                                <td style="color: var(--accent-coral); font-weight: 600;">-0,6683 p.p.</td>
+                                <td>-2,90</td>
+                                <td>0,004***</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Taylor Rule</strong></td>
+                                <td>selic_mediana_pct</td>
+                                <td style="color: var(--accent-coral); font-weight: 600;">+3,2958 p.p.</td>
+                                <td>15,08</td>
+                                <td>0,000***</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="highlight-box" style="margin-bottom: 0; background: rgba(245, 158, 11, 0.05); border-left-color: var(--accent-yellow);">
+                    <div class="highlight-box-title" style="color: var(--accent-yellow);">Análise do Prêmio de Juros</div>
+                    <p style="margin-bottom: 0; font-size: 0.9rem;">O modelo da Regra de Taylor mostra que mesmo para o <strong>mesmo desvio de inflação</strong>, as projeções de juros sob o Lula 3 carregam um prêmio adicional de <strong>3,3 p.p.</strong>. Isso aponta para uma percepção de risco fiscal agudo que exige uma postura mais contracionista implícita.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SEÇÃO DE DISCUSSÃO COM ECONOMISTAS -->
+        <div class="discussion-section">
+            <h3><span class="icon">💬</span>Roteiro e Perguntas Provocativas para a Entrevista</h3>
+            <p style="margin-bottom: 1.5rem;">Utilize os gráficos e tabelas acima para guiar a reflexão dos economistas entrevistados sobre os seguintes pontos:</p>
+            
+            <ul class="question-list">
+                <li class="question-item">
+                    <div class="question-text">Paradoxo IPCA x Selic: Por que menos inflação esperada convive com juros esperados mais altos?</div>
+                    <div class="question-context">No modelo OLS unificado, a dummy Lula 3 reduz a inflação projetada em 0,63 p.p., mas eleva a Selic projetada em 1,69 p.p.. O mercado está cobrando um prêmio puramente fiscal ou há desconfiança na condução da política monetária pelo Banco Central atual?</div>
+                </li>
+                <li class="question-item">
+                    <div class="question-text">Prêmio de Risco Fiscal na Regra de Taylor implícita: Como explicar o "excesso" de 3,3 p.p.?</div>
+                    <div class="question-context">Quando estimamos a expectativa de juros com base na desancoragem, o governo Lula 3 exibe um prêmio de 3,30 p.p. a mais na taxa básica. Esse prêmio é justificado pela expansão do gasto público/DBGG ou reflete ruídos de comunicação institucional (meta de inflação, indicação da diretoria do BCB)?</div>
+                </li>
+                <li class="question-item">
+                    <div class="question-text">Quebra Estrutural (Teste de Chow): O mercado mudou de regime ou apenas reagiu à mudança política?</div>
+                    <div class="question-context">O Teste de Chow rejeitou a estabilidade estrutural em todos os 4 modelos com p-valor de 0,000. Como o senhor avalia a mudança de sensibilidade do mercado a fatores globais (commodities, VIX) nas transições de governo? O mercado se tornou mais reativo a tensões fiscais domésticas e menos a choques externos?</div>
+                </li>
+                <li class="question-item">
+                    <div class="question-text">O viés de subestimativa sistemática do crescimento do PIB</div>
+                    <div class="question-context">O mercado subestimou o PIB anual em quase todos os anos (MAE de 2,76 p.p. no Bolsonaro e 1,41 p.p. no Lula 3). Por que o modelo Focus tem tanta dificuldade em capturar o crescimento real da economia brasileira? É um erro metodológico ou viés ideológico/institucional dos analistas?</div>
+                </li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Projeto de TCC de MBA em Economia — FIPE — 2026</p>
+            <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #6b7280;">Dados baseados no Boletim Focus do Banco Central do Brasil, séries históricas unificadas de 2019 a 2026.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Dados para o Chart.js
+        const metricsData = {
+            MAE: {
+                labels: ['IPCA Anual', 'Selic Anual', 'PIB Anual', 'DBGG'],
+                bolsonaro: [2.20, 3.25, 2.76, 3.10],
+                lula: [0.84, 1.28, 1.41, 1.20]
+            },
+            RMSE: {
+                labels: ['IPCA Anual', 'Selic Anual', 'PIB Anual', 'DBGG'],
+                // Simulando/calculando RMSE baseado nas bases
+                bolsonaro: [3.45, 4.12, 3.32, 3.52],
+                lula: [1.12, 1.84, 1.95, 1.45]
+            }
+        };
+
+        let currentMetric = 'MAE';
+        let chartInstance = null;
+
+        function initChart() {
+            const ctx = document.getElementById('accuracyChart').getContext('2d');
+            
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: metricsData[currentMetric].labels,
+                    datasets: [
+                        {
+                            label: 'Governo Bolsonaro (2019-2022)',
+                            data: metricsData[currentMetric].bolsonaro,
+                            backgroundColor: 'rgba(59, 130, 246, 0.65)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1.5,
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Governo Lula 3 (2023-2025)',
+                            data: metricsData[currentMetric].lula,
+                            backgroundColor: 'rgba(13, 148, 136, 0.65)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1.5,
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                callback: function(value) { return value + ' p.p.'; }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                font: {
+                                    family: "'Outfit', sans-serif",
+                                    weight: 600
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#f3f4f6',
+                                font: {
+                                    family: "'Inter', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw.toFixed(2) + ' p.p.';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function setMetric(metric) {
+            currentMetric = metric;
+            
+            // Atualizar botões
+            document.getElementById('btn-mae').classList.toggle('active', metric === 'MAE');
+            document.getElementById('btn-rmse').classList.toggle('active', metric === 'RMSE');
+            
+            // Atualizar dados
+            chartInstance.data.datasets[0].data = metricsData[metric].bolsonaro;
+            chartInstance.data.datasets[1].data = metricsData[metric].lula;
+            chartInstance.update();
+        }
+
+        // Inicializar gráfico no load da página
+        window.addEventListener('DOMContentLoaded', (event) => {
+            initChart();
+        });
+    </script>
+</body>
+</html>

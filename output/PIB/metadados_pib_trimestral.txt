@@ -1,0 +1,15 @@
+PIB trimestral — export batch
+janela_referencia: 1T/2019 a 1T/2026
+data_export: 2026-05-27
+
+IBGE: SIDRA t5932, classificacao c11255, setor 90707 (PIB a precos de mercado)
+  pib_ibge_vol_yoy_trim_pct = variavel 6561 (YoY mesmo trimestre, volume)
+  pib_ibge_vol_qoq_pct      = variavel 6564 (QoQ t/t-1)
+
+Focus: Olinda ExpectativasMercadoTrimestrais, indicador PIB Total
+  pib_focus_trim_med_pct = mediana; comparavel ao IBGE YoY (6561)
+
+comparacao_focus_ibge_pib_trimestral.csv:
+  ultima mediana Focus antes da divulgacao IBGE (proxy: 1T->jun, 2T->set, 3T->dez, 4T->mar+1)
+  erro_focus_vs_ibge_yoy_pp = focus_ultima_mediana_pct - ibge_vol_yoy_trim_pct
+  (IBGE pode refletir revisoes posteriores a divulgacao)

@@ -1,0 +1,14 @@
+DBGG 2020 — Focus x SGS
+
+Focus: Olinda ExpectativasMercadoAnuais
+  indicador: Dívida bruta do governo geral
+  dbgg_focus_med_pct_pib = mediana (% do PIB)
+  fonte: https://dadosabertos.bcb.gov.br/dataset/expectativas-mercado
+
+Realizado: BC SGS 13762 — DBGG (% PIB), metodologia a partir de 2008
+  dbgg_sgs_pct_pib = fechamento de dezembro do ano
+  fonte: https://dadosabertos.bcb.gov.br/dataset/13762-divida-bruta-do-governo-geral--pib---metodologia-utilizada-a-partir-de-2008
+
+comparacao_focus_dbgg.csv:
+  última mediana Focus antes de 01/05/(ano+1) (proxy divulgação fiscal anual)
+  erro_focus_vs_realizado_pp = focus_ultima_mediana_pct_pib - dbgg_realizado_dez_pct_pib

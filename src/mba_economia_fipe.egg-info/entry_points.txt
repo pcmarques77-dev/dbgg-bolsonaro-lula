@@ -1,0 +1,2 @@
+[console_scripts]
+mba-panel = mba_economia.cli:main

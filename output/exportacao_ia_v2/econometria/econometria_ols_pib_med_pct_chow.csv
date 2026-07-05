@@ -1,0 +1,5 @@
+teste;valor;p_value;nota
+chow_f_stat;50,62716033766342;0,0;quebra estrutural significante a 5%
+chow_n_bolsonaro;983,0;;
+chow_n_lula;841,0;;
+chow_params_count;3,0;;Variáveis analisadas: vix, commodities

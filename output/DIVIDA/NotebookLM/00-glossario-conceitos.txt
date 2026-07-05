@@ -1,0 +1,23 @@
+GLOSSÁRIO — Conceitos de dívida pública usados neste pacote
+
+DBGG (Dívida Bruta do Governo Geral)
+  Endividamento bruto dos governos federal, estaduais e municipais.
+  Não inclui estatais. Inclui compromissadas do BC.
+  Focus: indicador 'Dívida bruta do governo geral'. Realizado: SGS 13762.
+
+DLSP (Dívida Líquida do Setor Público)
+  Saldo líquido (dívidas − créditos) do setor público consolidado + BC.
+  Inclui estatais (exc. Petrobras/Eletrobras). Mais amplo que DBGG.
+  Focus: 'Dívida líquida do setor público'. Realizado: SGS 4513 (% PIB), 4478 (R$).
+
+DPF (Dívida Pública Federal)
+  Estoque da dívida mobiliária federal (Tesouro Transparente).
+  NÃO está neste pacote; conceito diferente de DBGG e DLSP.
+
+Erro de previsão (p.p.)
+  focus_ultima_mediana − realizado_dez_ano, em pontos percentuais do PIB.
+  Positivo = Focus superestimou; negativo = subestimou.
+
+Metodologia comparativa
+  Para cada ano Y: última mediana Focus antes de 01/05/(Y+1)
+  vs fechamento de dezembro/Y no SGS.

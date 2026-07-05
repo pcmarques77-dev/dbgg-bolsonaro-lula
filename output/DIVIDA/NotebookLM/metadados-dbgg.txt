@@ -1,0 +1,5 @@
+DBGG anual — export por ano
+janela: 2019 a 2026
+data_export: 2026-07-05
+pasta por ano: C:\Users\pcmar\expectativas-macro-2019-2026\output\DIVIDA/{ano}/
+resumo consolidado: comparacao_focus_dbgg_anual.csv

@@ -1,0 +1,14 @@
+DBGG — comparativo 2019-2026
+data_export: 2026-06-07
+anos_na_tabela: 8
+anos_com_realizado_e_erro: 7
+anos_apenas_focus (sem realizado): 1
+
+Arquivos:
+  comparacao_focus_dbgg.csv
+  focus_dbgg_com_realizado.csv
+  comparacao_focus_dbgg.png
+  erro_previsao_dbgg.png
+  dispersao_focus_dbgg.png
+  convergencia_focus_dbgg_2019.png
+  convergencia_focus_dbgg_2026.png

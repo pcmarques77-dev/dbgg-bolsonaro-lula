@@ -1,0 +1,26 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:      selic_mediana_pct   R-squared:                       0.802
+Model:                            OLS   Adj. R-squared:                  0.802
+Method:                 Least Squares   F-statistic:                     902.7
+Date:                Sun, 21 Jun 2026   Prob (F-statistic):          7.74e-271
+Time:                        23:08:10   Log-Likelihood:                -3626.3
+No. Observations:                1770   AIC:                             7259.
+Df Residuals:                    1767   BIC:                             7275.
+Df Model:                           2                                         
+Covariance Type:                  HAC                                         
+===========================================================================================
+                              coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------------------
+const                       5.6492      0.146     38.602      0.000       5.362       5.936
+desancoragem_centro_12m     2.6760      0.096     27.877      0.000       2.488       2.864
+dummy_lula                  3.2958      0.219     15.081      0.000       2.867       3.724
+==============================================================================
+Omnibus:                        5.765   Durbin-Watson:                   0.030
+Prob(Omnibus):                  0.056   Jarque-Bera (JB):                4.664
+Skew:                           0.002   Prob(JB):                       0.0971
+Kurtosis:                       2.749   Cond. No.                         3.85
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 4 lags and without small sample correction

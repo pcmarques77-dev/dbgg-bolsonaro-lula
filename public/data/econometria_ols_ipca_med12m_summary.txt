@@ -1,0 +1,28 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            ipca_med12m   R-squared:                       0.492
+Model:                            OLS   Adj. R-squared:                  0.490
+Method:                 Least Squares   F-statistic:                     105.5
+Date:                Sun, 05 Jul 2026   Prob (F-statistic):           6.93e-81
+Time:                        00:38:15   Log-Likelihood:                -1620.1
+No. Observations:                1824   AIC:                             3250.
+Df Residuals:                    1819   BIC:                             3278.
+Df Model:                           4                                         
+Covariance Type:                  HAC                                         
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+const              1.2749      0.162      7.862      0.000       0.957       1.593
+dummy_lula        -0.6280      0.072     -8.730      0.000      -0.769      -0.487
+dummy_pandemia     0.1829      0.071      2.572      0.010       0.044       0.322
+vix                0.0044      0.004      1.163      0.245      -0.003       0.012
+commodities        0.1551      0.008     18.620      0.000       0.139       0.171
+==============================================================================
+Omnibus:                       80.821   Durbin-Watson:                   0.030
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               90.742
+Skew:                           0.542   Prob(JB):                     1.98e-20
+Kurtosis:                       3.134   Cond. No.                         194.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 4 lags and without small sample correction

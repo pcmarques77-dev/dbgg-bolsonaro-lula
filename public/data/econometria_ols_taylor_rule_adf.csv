@@ -1,0 +1,4 @@
+serie;adf_stat;p_value;n_obs;conclusao_5pct
+taylor_rule;-0,5513531185359455;0,8815997949472886;1770,0;não_rejeita_H0_raiz_unitária
+desancoragem_centro_12m;-1,8756197798331093;0,34361580460010177;1770,0;não_rejeita_H0_raiz_unitária
+dummy_lula;-0,9348145991174336;0,7762914268680421;1770,0;não_rejeita_H0_raiz_unitária
