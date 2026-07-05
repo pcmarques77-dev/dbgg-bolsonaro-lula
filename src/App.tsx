@@ -125,22 +125,26 @@ export default function App() {
       }
 
       // 3. Efeitos de Transmissão Macro-Fiscal (Bolsonaro Path)
-      const deltaS_bols = s_t_bols_sim - basePrim_t;
-      const g_t_bols_sim = g_t_real - multiplier * deltaS_bols; // Austeridade reduz PIB
-      const i_t_bols_sim = i_t_real - interestSensitivity * deltaS_bols; // Austeridade reduz prêmio de juros
+      const deltaS_bols_dec = (s_t_bols_sim - basePrim_t) / 100;
+      const g_t_bols_sim = g_t_real - multiplier * deltaS_bols_dec; // Austeridade reduz PIB
+      const i_t_bols_sim = i_t_real - interestSensitivity * deltaS_bols_dec; // Austeridade reduz prêmio de juros
       
       // 4. Efeitos de Transmissão Macro-Fiscal (Lula 3 Path)
-      const deltaS_lula = s_t_lula_sim - basePrim_t;
-      const g_t_lula_sim = g_t_real - multiplier * deltaS_lula;
-      const i_t_lula_sim = i_t_real - interestSensitivity * deltaS_lula;
+      const deltaS_lula_dec = (s_t_lula_sim - basePrim_t) / 100;
+      const g_t_lula_sim = g_t_real - multiplier * deltaS_lula_dec;
+      const i_t_lula_sim = i_t_real - interestSensitivity * deltaS_lula_dec;
+
+      // Guarda a dívida anterior para o cálculo do estabilizador
+      const prevBolsDebt = currentBolsDebt;
+      const prevLulaDebt = currentLulaDebt;
 
       // 5. Cálculo Recursivo da Dívida Simulações: D_t = D_{t-1} * (1 + i) / (1 + g) - S
       currentBolsDebt = currentBolsDebt * (1 + i_t_bols_sim) / (1 + g_t_bols_sim) - s_t_bols_sim;
       currentLulaDebt = currentLulaDebt * (1 + i_t_lula_sim) / (1 + g_t_lula_sim) - s_t_lula_sim;
 
-      // 6. Cálculo do Superávit Primário Estabilizador
-      const est_bols = currentBolsDebt * (i_t_bols_sim - g_t_bols_sim) / (1 + g_t_bols_sim);
-      const est_lula = currentLulaDebt * (i_t_lula_sim - g_t_lula_sim) / (1 + g_t_lula_sim);
+      // 6. Cálculo do Superávit Primário Estabilizador usando D_{t-1}
+      const est_bols = prevBolsDebt * (i_t_bols_sim - g_t_bols_sim) / (1 + g_t_bols_sim);
+      const est_lula = prevLulaDebt * (i_t_lula_sim - g_t_lula_sim) / (1 + g_t_lula_sim);
 
       return {
         ano: row.ano,
