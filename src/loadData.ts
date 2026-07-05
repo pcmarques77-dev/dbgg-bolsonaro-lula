@@ -351,10 +351,9 @@ export async function loadDashboardData(): Promise<DashboardData> {
     dbgg_realizado: parseNumber(r.dbgg_realizado),
     pib_nominal: parseNumber(r.pib_nominal),
     primario_realizado: parseNumber(r.primario_realizado),
+    primario_estrutural: parseNumber(r.primario_estrutural),
     g_nominal: r.g_nominal ? parseNumber(r.g_nominal) : null,
     custo_implicito: r.custo_implicito ? parseNumber(r.custo_implicito) : null,
-    sim_bols_com_fiscal_lula: parseNumber(r.sim_bols_com_fiscal_lula),
-    sim_lula_com_fiscal_bols: parseNumber(r.sim_lula_com_fiscal_bols),
   })).sort((a, b) => a.ano - b.ano);
 
   return {

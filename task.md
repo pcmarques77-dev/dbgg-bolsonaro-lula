@@ -1,26 +1,29 @@
 # Checklist do Simulador de Trajetória da DBGG (task.md)
 
-## Tarefas Pendentes (Backlog)
+## Tarefas Concluídas (V1)
+- [x] Inicialização do projeto, instalação e configuração do React.
+- [x] Construção da base de dados local via Python (`scripts/simular_dbgg.py`).
+- [x] Lógica de simulação básica e interface do usuário com Recharts.
+- [x] Deploy inicial de produção no Vercel e repositório GitHub criado.
 
-### 1. Configuração e Dependências
-- [x] Executar `npm install` no novo diretório para criar `node_modules`.
-- [ ] Ativar/configurar o ambiente virtual Python se necessário para futuras atualizações de dados.
+## Backlog do Simulador Avançado (V2)
 
-### 2. Infraestrutura do React
-- [x] Criar o carregador de dados `loadSimulationData` em `src/loadData.ts` para ler `public/data/simulacao_dbgg_contra_fatual.csv`.
-- [x] Definir a interface TypeScript para os dados da simulação em `src/types.ts`.
+### 1. Ingestão de Dados Avançados (Python)
+- [x] Atualizar `scripts/simular_dbgg.py` para injetar dados estruturais de 2020 (Covid-19) e projetar séries de 2026 a 2030.
+- [x] Rodar o script e atualizar o CSV em `public/data/simulacao_dbgg_contra_fatual.csv`.
 
-### 3. Interface do Usuário (App.tsx)
-- [x] Limpar a estrutura de abas macro (PIB, IPCA, Selic) e centralizar a visualização no simulador.
-- [x] Criar o painel lateral ou cabeçalho de controles (Sliders e Toggles).
-- [x] Implementar a lógica de cálculo em tempo real no React (permitir que juros e PIB nominal fiquem constantes e recalcular a trajetória conforme os sliders de resultado primário são arrastados).
-- [x] Desenhar os Bento Cards Analíticos de resumo dinâmicos (Dívida Realizada, Cenários Contra-fatuais, Diferença em p.p.).
-- [x] Adicionar os gráficos Recharts específicos:
-  - Trajetória histórica vs simulada da DBGG (gráfico de linha).
-  - Resultado primário real vs simulado (gráfico de barras).
+### 2. Infraestrutura React
+- [x] Atualizar as interfaces de tipos no React (`src/types.ts`) e parse de dados (`src/loadData.ts`) com as novas colunas e extensão de anos até 2030.
 
-### 4. Validação e Deploy
-- [x] Testar a consistência da simulação em tempo real (sliders em 0 ou valores originais devem reproduzir o realizado histórico exatamente).
-- [x] Executar o build local (`npm run build`).
-- [ ] Deploy da nova aplicação no Vercel (`vercel`).
-- [ ] Subir para um novo repositório GitHub.
+### 3. Mecanismo de Simulação Avançado (App.tsx)
+- [ ] Adicionar estados de controles no React para o Multiplicador Fiscal ($\mu$) e Sensibilidade de Juros ($\gamma$).
+- [ ] Criar a alternância entre Primário Real e Primário Estrutural.
+- [ ] Implementar a lógica de recálculo recursivo dinâmico de PIB nominal ($g_t$) e Juros implícitos ($i_t$) com base nos desvios fiscais.
+- [ ] Calcular dinamicamente o Resultado Primário Estabilizador anual.
+
+### 4. Interface Gráfica e Visualização
+- [ ] Adicionar sliders de controle de multiplicadores na tela com design premium dark.
+- [ ] Atualizar o gráfico da trajetória da dívida para ir até 2030 e plotar a linha do Primário Estabilizador.
+- [ ] Atualizar a tabela de detalhamento anual de cálculos e adicionar os Bento Cards de comentários metodológicos atualizados.
+- [ ] Validar a compilação local com `npm run build`.
+- [ ] Subir as atualizações para o GitHub e Vercel.

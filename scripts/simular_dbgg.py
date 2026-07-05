@@ -1,7 +1,7 @@
-"""Script de simulação contra-fatual da DBGG (Bolsonaro vs Lula 3).
+"""Script de simulação contra-fatual da DBGG (Bolsonaro vs Lula 3) - Versão Avançada.
 
-Calcula o custo implícito da dívida e simula as trajetórias se os padrões
-de resultado primário fossem trocados entre os governos.
+Calcula o custo implícito da dívida, introduz a série estrutural (sem Covid)
+e projeta as trajetórias de base (baseline) de 2026 a 2030.
 """
 
 from pathlib import Path
@@ -25,25 +25,25 @@ def fetch_sgs(codigo: int) -> pd.DataFrame:
     return df
 
 def main():
-    print("=== INICIANDO SIMULAÇÃO CONTRA-FATUAL DA DBGG ===")
+    print("=== INICIANDO SIMULAÇÃO FISCAL AVANÇADA DA DBGG (2018-2030) ===")
     
     # 1. Carregar dados do SGS
     # 13762: DBGG (% PIB)
-    # 5784: NFSP Governo Central - Resultado Primário (% PIB acumulado 12m) - Nota: NFSP é o Déficit, então multiplicamos por -1 para obter o Superávit.
+    # 5784: NFSP Governo Central - Resultado Primário (% PIB acumulado 12m)
     # 1207: PIB nominal acumulado 12m (R$ milhões)
     
     dbgg_raw = fetch_sgs(13762)
     nfsp_raw = fetch_sgs(5784)
     pib_raw = fetch_sgs(1207)
     
-    # Filtrar para valores de dezembro (fechamento do ano) para DBGG e NFSP
+    # Filtrar para valores de dezembro
     def filtrar_dezembro(df: pd.DataFrame, col_name: str) -> pd.DataFrame:
         df_copy = df.copy()
         df_copy["ano"] = df_copy["data"].dt.year
         df_copy["mes"] = df_copy["data"].dt.month
-        # Pegar dezembro
+        
         dez = df_copy[df_copy["mes"] == 12].copy()
-        # Se algum ano não tiver dezembro (ex: ano corrente), pega o último disponível
+        
         ultimo_ano = df_copy["ano"].max()
         if ultimo_ano not in dez["ano"].values:
             ultimo_obs = df_copy[df_copy["ano"] == ultimo_ano].sort_values("data").iloc[-1:]
@@ -52,7 +52,6 @@ def main():
         dez = dez.sort_values("ano").drop_duplicates(subset=["ano"], keep="last")
         return dez[["ano", "valor"]].rename(columns={"valor": col_name})
     
-    # Filtrar PIB nominal (que vem como 01/01/ano no SGS)
     pib_anual = pib_raw.copy()
     pib_anual["ano"] = pib_anual["data"].dt.year
     pib_anual = pib_anual[["ano", "valor"]].rename(columns={"valor": "pib_nominal"})
@@ -60,7 +59,7 @@ def main():
     dbgg_anual = filtrar_dezembro(dbgg_raw, "dbgg_realizado")
     nfsp_anual = filtrar_dezembro(nfsp_raw, "nfsp_realizado")
     
-    # Mesclar dados anuais de 2018 a 2025
+    # Mesclar dados históricos de 2018 a 2025
     df = dbgg_anual.merge(nfsp_anual, on="ano", how="inner")
     df = df.merge(pib_anual, on="ano", how="inner")
     df = df[(df["ano"] >= 2018) & (df["ano"] <= 2025)].sort_values("ano").reset_index(drop=True)
@@ -70,11 +69,15 @@ def main():
     df["primario_realizado"] = -1.0 * df["nfsp_realizado"]
     df = df.drop(columns=["nfsp_realizado"])
     
-    # Calcular Crescimento Nominal do PIB (g_t)
+    # Injetar o Resultado Primário Estrutural (Frente 2)
+    # Exclui os gastos extraordinários com a pandemia de Covid-19 em 2020 (~6,80% do PIB)
+    df["primario_estrutural"] = df["primario_realizado"].copy()
+    df.loc[df["ano"] == 2020, "primario_estrutural"] = -2.99  # Déficit estrutural real ajustado
+    
+    # Calcular Crescimento Nominal do PIB histórico
     df["g_nominal"] = df["pib_nominal"].pct_change()
     
-    # Calcular custo implícito da dívida (i_t)
-    # 1 + i_t = (D_t + S_t) * (1 + g_t) / D_{t-1}
+    # Calcular custo implícito da dívida histórico
     df["custo_implicito"] = None
     for idx in range(1, len(df)):
         d_t = df.loc[idx, "dbgg_realizado"]
@@ -84,62 +87,43 @@ def main():
         
         i_t = ((d_t + s_t) * (1 + g_t) / d_prev) - 1
         df.loc[idx, "custo_implicito"] = i_t
-    
-    print("\nDados Históricos Consolidados:")
-    print(df.to_string(index=False))
-    
-    # 2. Definir Padrões de Gastos/Resultado Primário
-    # Bolsonaro (2019-2022)
-    # Lula 3 (2023-2025)
-    
-    prim_bols_avg = df[(df["ano"] >= 2019) & (df["ano"] <= 2022)]["primario_realizado"].mean()
-    prim_lula_avg = df[(df["ano"] >= 2023) & (df["ano"] <= 2025)]["primario_realizado"].mean()
-    
-    print(f"\nMédia Resultado Primário Bolsonaro (2019-2022): {prim_bols_avg:.3f}% do PIB")
-    print(f"Média Resultado Primário Lula 3 (2023-2025): {prim_lula_avg:.3f}% do PIB")
-    
-    # 3. Rodar Simulações
-    
-    # Simulação 1: Bolsonaro se tivesse mantido a política fiscal média de Lula 3 (2019-2022)
-    df["sim_bols_com_fiscal_lula"] = df["dbgg_realizado"].copy()
-    for idx in range(1, len(df)):
-        ano = df.loc[idx, "ano"]
-        if 2019 <= ano <= 2022:
-            d_prev = df.loc[idx - 1, "sim_bols_com_fiscal_lula"]
-            g_t = df.loc[idx, "g_nominal"]
-            i_t = df.loc[idx, "custo_implicito"]
-            # Resultado primário contra-fatual (média do Lula 3)
-            s_t = prim_lula_avg
-            
-            df.loc[idx, "sim_bols_com_fiscal_lula"] = d_prev * (1 + i_t) / (1 + g_t) - s_t
-        elif ano > 2022:
-            # Propaga a partir da nova base acumulada
-            d_prev = df.loc[idx - 1, "sim_bols_com_fiscal_lula"]
-            g_t = df.loc[idx, "g_nominal"]
-            i_t = df.loc[idx, "custo_implicito"]
-            s_t = df.loc[idx, "primario_realizado"]
-            df.loc[idx, "sim_bols_com_fiscal_lula"] = d_prev * (1 + i_t) / (1 + g_t) - s_t
 
-    # Simulação 2: Lula 3 se tivesse adotado a política fiscal média de Bolsonaro (2023-2025)
-    df["sim_lula_com_fiscal_bols"] = df["dbgg_realizado"].copy()
-    for idx in range(1, len(df)):
-        ano = df.loc[idx, "ano"]
-        if 2023 <= ano <= 2025:
-            d_prev = df.loc[idx - 1, "sim_lula_com_fiscal_bols"]
-            g_t = df.loc[idx, "g_nominal"]
-            i_t = df.loc[idx, "custo_implicito"]
-            # Resultado primário contra-fatual (média do Bolsonaro)
-            s_t = prim_bols_avg
-            
-            df.loc[idx, "sim_lula_com_fiscal_bols"] = d_prev * (1 + i_t) / (1 + g_t) - s_t
-            
-    print("\nResultados das Simulações:")
-    print(df[["ano", "dbgg_realizado", "primario_realizado", "sim_bols_com_fiscal_lula", "sim_lula_com_fiscal_bols"]].to_string(index=False))
+    # 2. Projetar anos de 2026 a 2030 (Frente 4)
+    # Premissas de baseline: crescimento nominal do PIB de 6.50% e juro implícito de 9.50%
+    baseline_g = 0.065
+    baseline_i = 0.095
+    baseline_s = 0.0 # Resultado Primário nulo
+    
+    records_proj = []
+    current_debt = df.loc[df.index[-1], "dbgg_realizado"]
+    current_pib = df.loc[df.index[-1], "pib_nominal"]
+    
+    for ano in range(2026, 2031):
+        # PIB nominal projetado
+        current_pib = current_pib * (1 + baseline_g)
+        # Dívida projetada sob premissa de baseline
+        current_debt = current_debt * (1 + baseline_i) / (1 + baseline_g) - baseline_s
+        
+        records_proj.append({
+            "ano": ano,
+            "dbgg_realizado": round(current_debt, 2),
+            "pib_nominal": round(current_pib, 2),
+            "primario_realizado": baseline_s,
+            "primario_estrutural": baseline_s,
+            "g_nominal": baseline_g,
+            "custo_implicito": baseline_i
+        })
+        
+    df_proj = pd.DataFrame(records_proj)
+    df_completo = pd.concat([df, df_proj], ignore_index=True)
+    
+    print("\nDados Consolidados da Simulação (2018-2030):")
+    print(df_completo.to_string(index=False))
     
     # Exportar para CSV
     out_path = OUT_DIR / "simulacao_dbgg_contra_fatual.csv"
-    df.to_csv(out_path, index=False, sep=";", decimal=",")
-    print(f"\n[OK] Simulação salva em: {out_path}")
+    df_completo.to_csv(out_path, index=False, sep=";", decimal=",")
+    print(f"\n[OK] Nova planilha de simulação avançada salva em: {out_path}")
 
 if __name__ == "__main__":
     main()

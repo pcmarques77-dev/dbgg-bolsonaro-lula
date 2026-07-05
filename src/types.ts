@@ -196,9 +196,8 @@ export interface DbggSimulacaoRow {
   dbgg_realizado: number;
   pib_nominal: number;
   primario_realizado: number;
+  primario_estrutural: number;
   g_nominal: number | null;
   custo_implicito: number | null;
-  sim_bols_com_fiscal_lula: number;
-  sim_lula_com_fiscal_bols: number;
 }
 
